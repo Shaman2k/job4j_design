@@ -6,15 +6,10 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
-
     private static final float LOAD_FACTOR = 0.75f;
-
     private int capacity = 8;
-
     private int count = 0;
-
     private int modCount = 0;
-
     private MapEntry<K, V>[] table = new MapEntry[capacity];
 
     @Override
@@ -22,10 +17,8 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
         if (count >= capacity * LOAD_FACTOR) {
             expand();
         }
-
         boolean result = false;
-        int hash = hash(Objects.hashCode(key));
-        int index = indexFor(hash);
+        int index = indexFor(key);
         if (table[index] == null) {
             table[index] = new MapEntry<>(key, value);
             modCount++;
@@ -43,12 +36,16 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
         return hash & (capacity - 1);
     }
 
+    private int indexFor(K key) {
+        return indexFor(hash(Objects.hashCode(key)));
+    }
+
     private void expand() {
         capacity *= 2;
         MapEntry<K, V>[] newTable = new MapEntry[capacity];
         for (int i = 0; i < table.length; i++) {
             if (table[i] != null) {
-                newTable[indexFor(hash(Objects.hashCode(table[i].key)))] = table[i];
+                newTable[indexFor(table[i].key)] = table[i];
             }
         }
         table = newTable;
@@ -57,7 +54,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     @Override
     public V get(K key) {
         V result = null;
-        int index = indexFor(hash(Objects.hashCode(key)));
+        int index = indexFor(key);
         if (table[index] != null
                 && Objects.hashCode(table[index].key) == Objects.hashCode(key)
                 && Objects.equals(table[index].key, key)) {
@@ -69,7 +66,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     @Override
     public boolean remove(K key) {
         boolean result = false;
-        int index = indexFor(hash(Objects.hashCode(key)));
+        int index = indexFor(key);
         if (get(key) != null) {
             table[index] = null;
             result = true;
@@ -91,7 +88,6 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
                     throw new ConcurrentModificationException();
                 }
                 while (index < table.length && table[index] == null) {
-
                     index++;
                 }
                 return index < table.length;
