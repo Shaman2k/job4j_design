@@ -9,8 +9,22 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, path -> path.toFile().getName().endsWith(".js")).forEach(System.out::println);
+        validate(args);
+        Path start = Path.of(args[0]);
+        String pattern = args[1];
+        search(start, path -> path.toFile().getName().endsWith(pattern)).forEach(System.out::println);
+    }
+
+    private static void validate(String[] args) {
+        if (args.length < 2) {
+            throw new IllegalArgumentException("Invalid parameters");
+        }
+        if (!Files.isDirectory(Paths.get(args[0]))) {
+            throw new IllegalArgumentException(args[0] + "is not a directory!");
+        }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("Search pattern must start with \".\"");
+        }
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
