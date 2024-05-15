@@ -14,12 +14,12 @@ public class Analysis {
                 if ("500".equals(parts[0]) || "400".equals(parts[0])) {
                     if (!isUnavailable) {
                         isUnavailable = true;
-                        writer.print(parts[1] + ";");
+                        writer.append(parts[1]).append(";");
                     }
                 } else {
                     if (isUnavailable) {
                         isUnavailable = false;
-                        writer.println(parts[1] + ";");
+                        writer.append(parts[1]).append(";").append(System.lineSeparator());
                     }
                 }
             }
