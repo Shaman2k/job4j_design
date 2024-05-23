@@ -14,8 +14,16 @@ public class ArgsName {
     }
 
     private void parse(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Arguments not passed to program");
+        }
         for (String arg : args) {
-            validate(arg);
+            if (!arg.startsWith("-")) {
+                throw new IllegalArgumentException("Error: This argument '" + arg + "' does not start with a '-' character");
+            }
+            if (!arg.contains("=")) {
+                throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain an equal sign");
+            }
             String[] parts = arg.split("=", 2);
             String key = parts[0].substring(1);
             String value = parts[1];
@@ -30,25 +38,13 @@ public class ArgsName {
     }
 
     public static ArgsName of(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Arguments not passed to program");
-        }
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
     }
 
-    private void validate(String arg) {
-        if (!arg.contains("=")) {
-            throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain an equal sign");
-        }
-        if (!arg.startsWith("-")) {
-            throw new IllegalArgumentException("Error: This argument '" + arg + "' does not start with a '-' character");
-        }
-    }
-
     public static void main(String[] args) {
-        ArgsName jvm = ArgsName.of(new String[]{"-Xmx=512", "-encoding=UTF-8"});
+        ArgsName jvm = ArgsName.of(new String[] {"-Xmx=512", "-encoding=UTF-8"});
         System.out.println(jvm.get("Xmx"));
 
         ArgsName zip = ArgsName.of(new String[]{"-out=project.zip", "-encoding=UTF-8"});
