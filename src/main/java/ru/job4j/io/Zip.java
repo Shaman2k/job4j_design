@@ -16,7 +16,6 @@ public class Zip {
     public void packFiles(List<Path> sources, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(target))) {
             for (Path path : sources) {
-               System.out.println(path.toString());
                 zip.putNextEntry(new ZipEntry(path.toString()));
                 try (BufferedInputStream output = new BufferedInputStream(new FileInputStream(path.toFile()))) {
                     zip.write(output.readAllBytes());
@@ -53,12 +52,15 @@ public class Zip {
 
     public static void main(String[] args) {
         Zip zip = new Zip();
+        if (args.length != 3) {
+            throw new IllegalArgumentException("Illegal arguments count");
+        }
         ArgsName argsName = ArgsName.of(args);
         zip.validate(argsName);
         try {
             zip.packFiles(Search.search(Paths.get(
-                    argsName.get(SOURCE)),
-                    p -> !p.toString().endsWith(argsName.get(EXCLUDE))),
+                                    argsName.get(SOURCE)),
+                            p -> !p.toString().endsWith(argsName.get(EXCLUDE))),
                     new File(argsName.get(OUTPUT))
             );
         } catch (IOException e) {
