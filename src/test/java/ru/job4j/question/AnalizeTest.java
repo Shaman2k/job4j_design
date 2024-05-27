@@ -1,13 +1,12 @@
 package ru.job4j.question;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import java.util.Set;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class AnalizeTest {
 
-    @Disabled
     @Test
     void whenNotChanged() {
         User u1 = new User(1, "A");
@@ -18,7 +17,6 @@ class AnalizeTest {
         assertThat(Analize.diff(previous, current)).isEqualTo(new Info(0, 0, 0));
     }
 
-    @Disabled
     @Test
     void whenOneChanged() {
         User u1 = new User(1, "A");
@@ -29,7 +27,6 @@ class AnalizeTest {
         assertThat(Analize.diff(previous, current)).isEqualTo(new Info(0, 1, 0));
     }
 
-    @Disabled
     @Test
     void whenOneDeleted() {
         User u1 = new User(1, "A");
@@ -40,7 +37,6 @@ class AnalizeTest {
         assertThat(Analize.diff(previous, current)).isEqualTo(new Info(0, 0, 1));
     }
 
-    @Disabled
     @Test
     void whenOneAdded() {
         User u1 = new User(1, "A");
@@ -51,7 +47,6 @@ class AnalizeTest {
         assertThat(Analize.diff(previous, current)).isEqualTo(new Info(1, 0, 0));
     }
 
-    @Disabled
     @Test
     void whenAllChanged() {
         User u1 = new User(1, "A");
