@@ -13,7 +13,7 @@ public class ArgsName {
         return values.get(key);
     }
 
-    private void parse(String[] args) {
+    private void validate(String[] args) {
         if (args.length == 0) {
             throw new IllegalArgumentException("Arguments not passed to program");
         }
@@ -33,18 +33,27 @@ public class ArgsName {
             if (key.isEmpty()) {
                 throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a key");
             }
+        }
+    }
+
+    private void parse(String[] args) {
+        for (String arg : args) {
+            String[] parts = arg.split("=", 2);
+            String key = parts[0].substring(1);
+            String value = parts[1];
             values.put(key, value);
         }
     }
 
     public static ArgsName of(String[] args) {
         ArgsName names = new ArgsName();
+        names.validate(args);
         names.parse(args);
         return names;
     }
 
     public static void main(String[] args) {
-        ArgsName jvm = ArgsName.of(new String[] {"-Xmx=512", "-encoding=UTF-8"});
+        ArgsName jvm = ArgsName.of(new String[]{"-Xmx=512", "-encoding=UTF-8"});
         System.out.println(jvm.get("Xmx"));
 
         ArgsName zip = ArgsName.of(new String[]{"-out=project.zip", "-encoding=UTF-8"});
