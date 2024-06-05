@@ -50,7 +50,6 @@ public class ConsoleChat {
                 System.out.println(answer);
                 log.add(answer);
             }
-
         }
         saveLog(log);
     }
@@ -58,7 +57,6 @@ public class ConsoleChat {
     private List<String> readPhrases() {
         try (BufferedReader reader = new BufferedReader(new FileReader(botAnswers, Charset.forName("WINDOWS-1251")))) {
             return reader.lines()
-                    .map(string -> string + System.lineSeparator())
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException(e);
