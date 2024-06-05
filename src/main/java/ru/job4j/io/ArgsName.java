@@ -24,13 +24,10 @@ public class ArgsName {
             if (!arg.contains("=")) {
                 throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain an equal sign");
             }
-            String[] parts = arg.split("=", 2);
-            String key = parts[0].substring(1);
-            String value = parts[1];
-            if (value.isEmpty()) {
+            if (arg.endsWith("=") && arg.split("=").length == 1) {
                 throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a value");
             }
-            if (key.isEmpty()) {
+            if (arg.startsWith("-=")) {
                 throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a key");
             }
         }
@@ -39,9 +36,7 @@ public class ArgsName {
     private void parse(String[] args) {
         for (String arg : args) {
             String[] parts = arg.split("=", 2);
-            String key = parts[0].substring(1);
-            String value = parts[1];
-            values.put(key, value);
+            values.put(parts[0].substring(1), parts[1]);
         }
     }
 
