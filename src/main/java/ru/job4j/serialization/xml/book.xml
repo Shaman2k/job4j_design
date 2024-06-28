@@ -1,0 +1,13 @@
+<Book>
+    <isAvailable>false</isAvailable>
+    <numberOfPages>550</numberOfPages>
+    <title>Сердца и Моторы</title>
+    <author>
+        <name>Васильев</name>
+        <birthYear>1967</birthYear>
+    </author>
+    <genres>
+        <genre>Фантастика</genre>
+        <genre>Фентези</genre>
+    </genres>
+</Book>
