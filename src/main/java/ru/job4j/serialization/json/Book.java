@@ -27,4 +27,24 @@ public class Book {
                 + ", genres=" + Arrays.toString(genres)
                 + '}';
     }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public int getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public String[] getGenres() {
+        return genres;
+    }
 }

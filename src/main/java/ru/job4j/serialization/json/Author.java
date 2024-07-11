@@ -16,4 +16,12 @@ public class Author {
                 + ", birthYear=" + birthYear
                 + '}';
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getBirthYear() {
+        return birthYear;
+    }
 }
