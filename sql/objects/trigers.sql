@@ -12,8 +12,7 @@ create
     returns trigger as
 $$
 BEGIN
-    update products
-    set new.price = new.price + new.price * 0.2;
+    new.price = new.price + new.price * 0.2;
     return new;
 END;
 $$
