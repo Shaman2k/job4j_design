@@ -1,6 +1,5 @@
 package ru.job4j.gc.leak;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,11 +7,10 @@ import java.util.Random;
 public class CommentGenerator implements Generate {
 
     public static final String PATH_PHRASES = "src/main/java/ru/job4j/gc/leak/files/phrases.txt";
-
     public static final String SEPARATOR = System.lineSeparator();
-    private static List<Comment> comments = new ArrayList<>();
-    public static final Integer COUNT = 50;
-    private static List<String> phrases;
+    public static final int COUNT = 50;
+    private List<Comment> comments = new ArrayList<>();
+    private List<String> phrases;
     private UserGenerator userGenerator;
     private Random random;
 
@@ -23,14 +21,10 @@ public class CommentGenerator implements Generate {
     }
 
     private void read() {
-        try {
-            phrases = read(PATH_PHRASES);
-        } catch (IOException e) {
-            throw new IllegalArgumentException(e);
-        }
+        phrases = read(PATH_PHRASES);
     }
 
-    public static List<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
