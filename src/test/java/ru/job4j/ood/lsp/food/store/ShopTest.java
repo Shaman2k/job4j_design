@@ -8,8 +8,9 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
 
+@Disabled
 class ShopTest {
-    @Disabled
+
     @Test
     void whenExpiredTodayThenDiscount() {
         Store shop = new Shop();

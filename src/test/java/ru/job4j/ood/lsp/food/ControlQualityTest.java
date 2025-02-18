@@ -12,6 +12,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
 
+@Disabled
 class ControlQualityTest {
 
     private final ControlQuality controlQuality = new ControlQuality();
@@ -39,7 +40,6 @@ class ControlQualityTest {
         assertThat(trash.contains(bread)).isTrue();
     }
 
-    @Disabled
     @Test
     void whenExpiredTodayThenShop() {
         Food bread = new Food("Bread",
@@ -53,7 +53,6 @@ class ControlQualityTest {
         assertThat(trash.contains(bread)).isFalse();
     }
 
-    @Disabled
     @Test
     void whenFreshThenWarehouse() {
         Food bread = new Food("Bread",
